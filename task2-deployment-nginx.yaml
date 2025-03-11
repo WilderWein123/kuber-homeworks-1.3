@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task2-nginx
+  labels:
+    app: task2-nginx
+spec:
+  selector:
+    matchLabels:
+      app: task2-nginx
+  template:
+    metadata:
+      labels:
+        app: task2-nginx
+    spec:
+      containers:
+        - name: task2-nginx
+          image: nginx:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 80
+      initContainers:
+        - name: w84service
+          image: busybox
+          command: ['sh', '-c', 'until nslookup service-task2-nginx.default.svc.cluster.local; do sleep 5; done;']
