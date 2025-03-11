@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task1-multitool
+spec:
+  selector:
+    matchLabels:
+      app: task1-multitool
+  template:
+    metadata:
+      labels:
+        app: task1-multitool
+    spec:
+      containers:
+      - name: multitool
+        image: praqma/network-multitool
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8081
